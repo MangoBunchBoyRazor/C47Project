@@ -1,3 +1,17 @@
+/*
+    PC Character
+    IGN Player
+    This is the main character in the game
+    It is controlled by the user. Controls W,A,S,D
+
+    Main properties:
+        * sprite - p5.play sprite
+    Other properties:
+        NiL
+    Methods:
+        * updateSurfaceArea - function to increase the size of the blob
+        * update - generic update function. Performs all necessary tasks such as updating position, etc
+*/
 class Player {
     constructor(x, y) {
         this.sprite = createSprite(x, y, 64, 64); //Creating sprite for the player

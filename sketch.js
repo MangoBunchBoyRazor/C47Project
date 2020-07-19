@@ -1,48 +1,32 @@
-const Engine = Matter.Engine;
-const World = Matter.World;
-const Bodies = Matter.Bodies;
-const Body = Matter.Body;
+/*
+	Killer mode on
+	Game source code
+	Created by Mohamed Razeen
+*/
+var player, ammo;	//Declaring variables
 
-var player, ammo;
-//var zoom;
-function preload() {
-
-}
-
+function preload() { /**/ }
 function setup() {
-	createCanvas(800, 700);
+	createCanvas(800, 700);	//Creating the canvas
 
-	engine = Engine.create();
-	world = engine.world;
-	world.gravity.y = 0;
-
-	player = new Player(width / 2, height / 2);
-	ammo = [];
+	player = new Player(width / 2, height / 2);	//Creating the main player object
+	ammo = [];	//Array for storing all the ammo objects
+	//Initializing the array
 	for (let i = 0; i < 200; i++) {
 		let s = new Ammo(floor(random(-width, width)), floor(random(-height, height)));
 		ammo.push(s);
 	}
-
-	//zoom = 1;
 }
-
-
+//Animation loop
 function draw() {
-	rectMode(CENTER);
-	background(240);
+	background(240);	//Background color
 
-	/*translate(width / 2, height / 2);
-	let newzoom = 64 / (player.sprite.width / 2);
-	zoom = lerp(zoom, newzoom, 0.1);
-	scale(zoom);
-	translate(-player.sprite.position.x, -player.sprite.position.y);*/
+	player.update();	//updating the player object
 
-	player.update();
+	//Updating all the elements in the ammo array
+	for (let i = 0; i < ammo.length; i++)
+		ammo[i].eats();	//Checking if the player is colliding with any blob
 
-	for (let i = 0; i < ammo.length; i++) {
-		let s = ammo[i];
-		s.update();
-	}
-
+	//Drawing all sprites
 	drawSprites();
 }
