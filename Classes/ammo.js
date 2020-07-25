@@ -28,7 +28,7 @@ class Ammo {
             ellipse(0, 0, this.sprite.width, this.sprite.height);
             pop();
         }
-
+        this.sprite.setCollider("circle");
         this.hue = floor(random(360));  //Other property 1: the hue
     }
     //Update function
@@ -36,9 +36,12 @@ class Ammo {
     eats() {
         //If sprite overlaps the player then the size of the player should be increased
         this.sprite.overlap(player.sprite, () => {
-            player.updateSurfaceArea(player.sprite.height * player.sprite.width + PI * this.sprite.width * this.sprite.width);
-            this.sprite.remove();
-            player.sprite.mass += .01;
+            player.updateSurfaceArea(player.radius * player.radius * PI + 500,true);
+            player.sprite.mass += .05;
+
+            //Setting the position to a new position
+            this.sprite.position.x=random(-width,width);
+            this.sprite.position.y=random(-height,height);
         });
     }
 }
