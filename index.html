@@ -5,6 +5,25 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Killer Mode On</title>
+
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-database.js"></script>
+
+  <script>
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+      apiKey: "AIzaSyBt-EC01V1szhErB-ocGwHN4R_ow0d9ufU",
+      authDomain: "killer-mode-on-game.firebaseapp.com",
+      databaseURL: "https://killer-mode-on-game.firebaseio.com",
+      projectId: "killer-mode-on-game",
+      storageBucket: "killer-mode-on-game.appspot.com",
+      messagingSenderId: "654335619342",
+      appId: "1:654335619342:web:beb3e232a737bf9e9ba75f"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+  </script>
+    
   <style>
     body {
       padding: 0;
@@ -19,6 +38,7 @@
 </head>
 
 <body>
+  <script src="Classes/form.js"></script>
   <script src="Classes/ammo.js"></script>
   <script src="Classes/player.js"></script>
   <script src="sketch.js"></script>

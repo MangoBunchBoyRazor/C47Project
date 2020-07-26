@@ -40,20 +40,17 @@ class Player {
 
         this.health = 100;  //health of the player
         this.bullets = createGroup();   //Bullets of the player
-        this.level; //level of the player
+        this.level = 1; //level of the player
+        this.kills = 0;
         this.hue = floor(random(360));  //Color of the player
         this.radius = 64;   //Size of the player
         this.ammoCount = 0; //Ammo of the player
+        this.bulletsArr = [];
+    }
+    setName(name){
+        this.name = name; 
     }
     increaseLevel(){}
-    /*displayHealth(){
-        push();
-        fill("green");
-        translate(this.sprite.position.x,this.sprite.position.y);
-        rectMode(CENTER);
-        rect(0,0,100,10);
-        pop();
-    }*/
     updateSurfaceArea(count,toIncrease) {
         //Updating the dimensions of the blob
         this.radius = sqrt(count/PI);
@@ -63,10 +60,18 @@ class Player {
             this.ammoCount++;
     }
     update() {
+        this.bulletsArr = [];
+        let bulletsas = this.bullets.toArray();
+        for(let i = 0; i < bulletsas.length; i++){
+            this.bulletsArr[i] = {
+                x: bulletsas[i].position.x,
+                y: bulletsas[i].position.y
+            }
+        }
+        this.updatePlayerInfo();
+
         //limiting the player speed by the amount of ammo it has
         this.sprite.limitSpeed(10/this.sprite.mass);
-
-        //this.displayHealth();
 
         //User controls
         if (keyDown('w')) {
@@ -103,5 +108,41 @@ class Player {
         this.sprite.mass -= .05;    //Decreasing the mass of the player because it has realeased bullets
 
         this.ammoCount--;   //Decreasing the ammo count
+    }
+    setPlayerCount(count){
+        database.ref("/").update({
+            playerCount: count
+        });
+    }
+    updatePlayerInfo(){
+        database.ref("players/"+this.name).update({
+            ammoCount: player.ammoCount,
+            health: player.health,
+            size: player.radius,
+            kills: player.kills,
+            bullets: player.bulletsArr,
+            position: {
+                x: this.sprite.position.x,
+                y: this.sprite.position.y
+            }
+        });
+    }
+    removeFromGame(){
+        database.ref("players/"+this.name).set({
+            pls: null
+        });
+        this.sprite.remove();
+        this.setPlayerCount(playerCount - 1);
+
+        gameState = "over";
+
+        let button = createButton('restart');
+        button.position(300,400);
+        button.mousePressed(()=>{
+            button.remove();
+            gameState = "waiting";
+            form.formDiv.show();
+            form.heading.show();
+        })
     }
 }
