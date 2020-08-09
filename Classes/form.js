@@ -28,6 +28,15 @@ class Form{
         this.submit.mousePressed(()=>{
             this.submitData();
         })
+
+        this.resetBtn = createButton('reset');
+        this.resetBtn.position(10,10);
+        this.resetBtn.mousePressed(()=>{
+            database.ref('/').update({
+                players: null,
+                playerCount: 0
+            });
+        })
     }
     submitData(){
         if(this.nameInp.value() == ""){
@@ -52,7 +61,7 @@ class Form{
             ammoCount: player.ammoCount,
             size: player.radius,
             health: player.health,
-            kills: player.kills,
+            kills: 0,
             bullets: player.bulletsArr,
             position: {
                 x: player.sprite.position.x,

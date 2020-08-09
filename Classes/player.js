@@ -46,9 +46,14 @@ class Player {
         this.radius = 64;   //Size of the player
         this.ammoCount = 0; //Ammo of the player
         this.bulletsArr = [];
+
     }
     setName(name){
-        this.name = name; 
+        this.name = name;
+        database.ref("players/"+this.name).on('value',(data)=>{
+            if(data.val() !== null)
+                this.kills=data.val().kills;
+        });
     }
     increaseLevel(){}
     updateSurfaceArea(count,toIncrease) {
@@ -119,7 +124,6 @@ class Player {
             ammoCount: player.ammoCount,
             health: player.health,
             size: player.radius,
-            kills: player.kills,
             bullets: player.bulletsArr,
             position: {
                 x: this.sprite.position.x,

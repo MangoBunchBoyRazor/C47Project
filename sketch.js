@@ -95,6 +95,9 @@ function draw() {
 				}
 				if(player.health <= 0){
 					player.removeFromGame();
+					database.ref('players/'+enemy.name).update({
+						kills: enemy.kills + 1
+					});
 				}
 			}
 			pop();
@@ -109,6 +112,7 @@ function draw() {
 	text("Controls: W+A+S+D",width/2-250,-height/2+40);
 	text("Space to shoot",width/2-200,-height/2+80);
 	text("health: "+player.health,-width/2+10,-height/2+80);
+	text("kills: "+player.kills,-width/2+10,-height/2+120);
 
 	//Displaying the name
 	push();
