@@ -21,8 +21,7 @@ function setup() {
 	gameState = "waiting";
 
 	canvas = createCanvas(800, 700);	//Creating the canvas
-	canvas.style('z-index','-1');
-
+	canvas.style("z-index: 999");
 	form = new Form();
 
 	ammo = [];	//Array for storing all the ammo objects

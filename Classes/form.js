@@ -63,6 +63,8 @@ class Form{
         canvas.show();
         this.formDiv.hide();
         this.heading.hide();
+        this.nameInp.hide();
+        this.nameLabel.hide();
 
         player = new Player(width/2,height/2);
         player.setName(this.nameInp.value());
